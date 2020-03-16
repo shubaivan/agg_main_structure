@@ -34,7 +34,13 @@ RUN apk add --update --no-cache \
     php7-zip \
     php7-xmlwriter \
     make \
-    curl
+    curl \
+    zlib-dev \
+    libxml2-dev \
+    rabbitmq-c-dev \
+    oniguruma-dev \
+    php7-pecl-amqp \
+    php7-amqp
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \

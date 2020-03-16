@@ -32,7 +32,6 @@ services:
 
     rabbitmq:
         image: rabbitmq:3.7.5-management
-        working_dir: /app
         hostname: rabbit-mq
         container_name: 'rabbit-mq'
         ports:
@@ -41,7 +40,7 @@ services:
         environment:
             RABBITMQ_DEFAULT_USER: minimoj
             RABBITMQ_DEFAULT_PASS: minimoj
-            RABBITMQ_DEFAULT_VHOST: my_vhost
+            RABBITMQ_DEFAULT_VHOST: /
         networks:
             - php
 
@@ -50,6 +49,8 @@ services:
         build: ./php-fpm
         ports:
             - "9000:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/messages # AMQP connection string-
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
