@@ -59,6 +59,21 @@ services:
         networks:
             - php
 
+    php-consume:
+        container_name: php-consume
+        build: ./php-consume
+        ports:
+            - "9002:9003"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/messages # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+        depends_on:
+            - db
+        networks:
+            - php
+
     nginx:
         container_name: nginx
         build: ./nginx
@@ -71,6 +86,7 @@ services:
         volumes:
             - ./logs/nginx:/var/log/nginx:cached
             - ./symfony:/var/www/symfony:cached
+
     elasticsearch:
         container_name: elasticsearch
         image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
