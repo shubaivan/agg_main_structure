@@ -50,7 +50,7 @@ services:
         ports:
             - "9000:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
-            - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/messages # AMQP connection string-
+          - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/ # AMQP connection string-
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
@@ -65,7 +65,7 @@ services:
         ports:
             - "9002:9003"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
-            - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/messages # AMQP connection string-
+          - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/ # AMQP connection string-
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
