@@ -88,14 +88,7 @@ services:
         container_name: nginx
         build: ./nginx
         ports:
-            - mode: host
-              protocol: tcp
-              published: 80
-              target: 80
-            - mode: host
-              protocol: tcp
-              published: 443
-              target: 81
+          - "80:80"
         depends_on: 
             - php
         networks:
@@ -139,6 +132,7 @@ services:
             - elk_stack
         ports:
             - "81:5601"
-networks:
+/home/ivan/hosts/docker-symfony/docker-compose:
+  yml:networks:
     php:
     elk_stack:
