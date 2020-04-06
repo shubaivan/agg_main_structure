@@ -132,7 +132,7 @@ services:
             - elk_stack
         ports:
             - "81:5601"
-/home/ivan/hosts/docker-symfony/docker-compose:
-  yml:networks:
+
+networks:
     php:
     elk_stack:
