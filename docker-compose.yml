@@ -7,10 +7,10 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: symfony
-            MYSQL_USER: symfony
-            MYSQL_PASSWORD: symfony
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         networks:
             - php
 
@@ -22,9 +22,9 @@ services:
         working_dir: /app
         restart: always
         environment:
-            POSTGRES_DB: 'minimoj'
-            POSTGRES_USER: 'minimoj'
-            POSTGRES_PASSWORD: '111'
+            POSTGRES_DB: ${POSTGRES_DB}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         volumes:
             - ./data/postgresql:/var/lib/postgresql/data
         networks:
@@ -38,9 +38,9 @@ services:
             - '15672:15672'
             - '5672:5672'
         environment:
-            RABBITMQ_DEFAULT_USER: minimoj
-            RABBITMQ_DEFAULT_PASS: minimoj
-            RABBITMQ_DEFAULT_VHOST: /
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+            RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST}
         networks:
             - php
 
@@ -56,7 +56,7 @@ services:
         ports:
             - "9000:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
-          - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/ # AMQP connection string-
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
@@ -73,7 +73,7 @@ services:
         ports:
             - "9002:9003"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
-          - MESSENGER_TRANSPORT_DSN=amqp://minimoj:minimoj@rabbitmq:5672/%2f/ # AMQP connection string-
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached

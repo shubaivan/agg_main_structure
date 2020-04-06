@@ -40,7 +40,11 @@ RUN apk add --update --no-cache \
     rabbitmq-c-dev \
     oniguruma-dev \
     php7-pecl-amqp \
-    php7-amqp
+    php7-amqp \
+    php7-redis
+
+RUN apk add supervisor && rm  -rf /tmp/* /var/cache/apk/*
+ADD ../php-consume/supervisord.conf /etc/
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
@@ -52,11 +56,9 @@ COPY symfony.ini /etc/php7/cli/conf.d/
 COPY xdebug.ini  /etc/php7/conf.d/
 
 COPY symfony.pool.conf /etc/php7/php-fpm.d/
-COPY message_script.sh /var/www/scripts/
 
 CMD ["php-fpm7", "-F"]
 
 WORKDIR /var/www/symfony
-ENTRYPOINT ["ash", "/var/www/scripts/message_script.sh"]
 
 EXPOSE 9003

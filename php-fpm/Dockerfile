@@ -43,9 +43,6 @@ RUN apk add --update --no-cache \
     php7-amqp \
     php7-redis
 
-RUN apk add supervisor && rm  -rf /tmp/* /var/cache/apk/*
-ADD supervisord.conf /etc/
-
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
         && php composer-setup.php && rm composer-setup.php* \
