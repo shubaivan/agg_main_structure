@@ -44,6 +44,12 @@ services:
         networks:
             - php
 
+    redis:
+        container_name: container_redis
+        image: redis:alpine
+        ports:
+            - "6379:6379"
+
     php:
         container_name: php-fpm
         build: ./php-fpm
@@ -54,6 +60,8 @@ services:
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
+        links:
+            - redis
         depends_on: 
             - db
         networks:
@@ -78,7 +86,14 @@ services:
         container_name: nginx
         build: ./nginx
         ports:
-            - "80:80"
+            - mode: host
+              protocol: tcp
+              published: 80
+              target: 80
+            - mode: host
+              protocol: tcp
+              published: 443
+              target: 81
         depends_on: 
             - php
         networks:
