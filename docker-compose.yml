@@ -77,6 +77,8 @@ services:
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
+        links:
+          - redis
         depends_on:
             - db
         networks:
