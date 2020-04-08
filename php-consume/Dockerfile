@@ -41,9 +41,13 @@ RUN apk add --update --no-cache \
     oniguruma-dev \
     php7-pecl-amqp \
     php7-amqp \
-    php7-redis
+    php7-redis \
+    openrc --no-cache \
+    supervisor
 
-RUN apk add supervisor && rm  -rf /tmp/* /var/cache/apk/*
+#RUN apk add supervisor && rm  -rf /tmp/* /var/cache/apk/*
+#RUN touch /var/run/supervisor.sock
+#RUN chmod 777 /var/run/supervisor.sock
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
