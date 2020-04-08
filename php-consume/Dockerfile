@@ -45,14 +45,12 @@ RUN apk add --update --no-cache \
     openrc --no-cache \
     supervisor
 
-#RUN apk add supervisor && rm  -rf /tmp/* /var/cache/apk/*
-#RUN touch /var/run/supervisor.sock
-#RUN chmod 777 /var/run/supervisor.sock
+COPY docker-entrypoint.sh /opt/docker-entrypoint.sh
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
         && php composer-setup.php && rm composer-setup.php* \
-        && chmod +x composer.phar && mv composer.phar /usr/bin/composer
+        && chmod +x composer.phar && mv composer.phar /usr/bin/composer && chmod +x /opt/docker-entrypoint.sh
 
 COPY symfony.ini /etc/php7/conf.d/
 COPY symfony.ini /etc/php7/cli/conf.d/
@@ -60,7 +58,7 @@ COPY xdebug.ini  /etc/php7/conf.d/
 
 COPY symfony.pool.conf /etc/php7/php-fpm.d/
 
-CMD ["php-fpm7", "-F"]
+ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 
 WORKDIR /var/www/symfony
 
