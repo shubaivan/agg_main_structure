@@ -58,8 +58,8 @@ COPY xdebug.ini  /etc/php7/conf.d/
 
 COPY symfony.pool.conf /etc/php7/php-fpm.d/
 
-ENTRYPOINT ["/opt/docker-entrypoint.sh"]
-
 WORKDIR /var/www/symfony
+
+ENTRYPOINT ["ash", "/opt/docker-entrypoint.sh"]
 
 EXPOSE 9003
