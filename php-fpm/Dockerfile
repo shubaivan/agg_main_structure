@@ -54,9 +54,6 @@ COPY xdebug.ini  /etc/php7/conf.d/
 
 COPY symfony.pool.conf /etc/php7/php-fpm.d/
 
-COPY ./cron /opt/cron
-RUN crontab -u root /opt/cron
-
 CMD ["php-fpm7", "-F"]
 
 WORKDIR /var/www/symfony
