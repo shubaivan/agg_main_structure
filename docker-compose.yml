@@ -15,16 +15,18 @@ services:
             - php
 
     postgres:
-        image: postgres:9.6
+        image: postgres:11-alpine
         ports:
             - '5432:5432'
-        container_name: 'postgresql'
+        container_name: 'postgresql_alpine'
         working_dir: /app
         restart: always
         environment:
             POSTGRES_DB: ${POSTGRES_DB}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            LC_COLLATE: 'sv_SE.UTF-8'
+            LC_CTYPE: 'sv_SE.UTF-8'
         volumes:
             - ./data/postgresql:/var/lib/postgresql/data
         networks:
