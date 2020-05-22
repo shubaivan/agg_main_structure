@@ -65,4 +65,4 @@ WORKDIR /var/www/symfony
 
 ENTRYPOINT ["ash", "/opt/docker-entrypoint.sh"]
 
-EXPOSE 9003
+EXPOSE 9001
