@@ -79,8 +79,8 @@ services:
         networks:
             - php
 
-    php-consume-csv:
-        container_name: php-consume-csv
+    php-consume-csv-first:
+        container_name: php-consume-csv-first
         build: php-consume-csv
         ports:
             - "9002:9001"
@@ -115,11 +115,29 @@ services:
         networks:
             - php
 
-    php-consume-adraction:
-        container_name: php-consume-adraction
-        build: php-consume-adraction
+    php-consume-csv-carriage:
+        container_name: php-consume-csv-carriage
+        build: php-consume-csv-carriage
         ports:
             - "9004:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./php-consume-csv-carriage/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        links:
+            - redis
+        depends_on:
+            - db
+        networks:
+            - php
+
+    php-consume-adraction-first:
+        container_name: php-consume-adraction-first
+        build: php-consume-adraction
+        ports:
+            - "9005:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
@@ -133,11 +151,47 @@ services:
         networks:
             - php
 
-    php-consume-adrecord:
-        container_name: php-consume-adrecord
+    php-consume-adraction-second:
+        container_name: php-consume-adraction-second
+        build: php-consume-adraction
+        ports:
+            - "9006:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./php-consume-adraction/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        links:
+            - redis
+        depends_on:
+            - db
+        networks:
+            - php
+
+    php-consume-adrecord-first:
+        container_name: php-consume-adrecord-first
         build: php-consume-adrecord
         ports:
-            - "9005:9001"
+            - "9007:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./php-consume-adrecord/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        links:
+            - redis
+        depends_on:
+            - db
+        networks:
+            - php
+
+    php-consume-adrecord-second:
+        container_name: php-consume-adrecord-second
+        build: php-consume-adrecord
+        ports:
+            - "9008:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
