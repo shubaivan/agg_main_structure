@@ -16,6 +16,7 @@ services:
 
     postgres:
         image: postgres:11-alpine
+        shm_size: 3g
         ports:
             - '5432:5432'
         container_name: 'postgresql_alpine'
