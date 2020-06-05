@@ -16,7 +16,7 @@ services:
 
     postgres:
         image: postgres:11-alpine
-        command: postgres -c work_mem=100MB -c max_parallel_workers_per_gather=6
+        command: postgres -c work_mem=100MB -c max_parallel_workers_per_gather=6 -c max_connections=300
         shm_size: 5g
         ports:
             - '5432:5432'
@@ -51,6 +51,10 @@ services:
     redis:
         container_name: container_redis
         image: redis:alpine
+        command: >
+            sh -c "redis-server
+            && redis-cli CONFIG SET maxmemory 4gb
+            && redis-cli CONFIG SET maxmemory-policy allkeys-lru
         ports:
             - "6379:6379"
         networks:
@@ -59,6 +63,10 @@ services:
     redis_cache:
         container_name: container_redis_cache
         image: redis:alpine
+        command: >
+            sh -c "redis-server
+            && redis-cli CONFIG SET maxmemory 4gb
+            && redis-cli CONFIG SET maxmemory-policy allkeys-lru
         ports:
             - "6380:6379"
         networks:
@@ -175,7 +183,7 @@ services:
         container_name: php-consume-adrecord-first
         build: php-consume-adrecord
         ports:
-            - "9007:9001"
+            - "9014:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
@@ -193,7 +201,7 @@ services:
         container_name: php-consume-adrecord-second
         build: php-consume-adrecord
         ports:
-            - "9008:9001"
+            - "9015:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
@@ -231,18 +239,18 @@ services:
             elk_stack:
                 aliases:
                     - "elasticsearch"
-    logstash:
-        container_name: logstash
-        image: docker.elastic.co/logstash/logstash:7.4.2
-        depends_on: 
-            - elasticsearch
-        volumes:
-            - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
-            - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
-            - ./logs/symfony:/var/www/symfony/var/log:cached
-            - ./logs/nginx:/var/log/nginx:cached
-        networks:
-            - elk_stack
+#    logstash:
+#        container_name: logstash
+#        image: docker.elastic.co/logstash/logstash:7.4.2
+#        depends_on:
+#            - elasticsearch
+#        volumes:
+#            - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
+#            - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
+#            - ./logs/symfony:/var/www/symfony/var/log:cached
+#            - ./logs/nginx:/var/log/nginx:cached
+#        networks:
+#            - elk_stack
     kibana:
         container_name: kibana
         depends_on: 
