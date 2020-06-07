@@ -177,24 +177,6 @@ services:
         networks:
             - php
 
-    php-consume-analysis-products:
-        container_name: php-consume-analysis-products
-        build: php-consume-analysis-product
-        ports:
-            - "9007:9001"
-        environment: # You can use this section to set environment variables. But you can also use the .env file.
-            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
-        volumes:
-            - ./symfony:/var/www/symfony:cached
-            - ./logs/symfony:/var/www/symfony/var/log:cached
-            - ./php-consume-analysis-product/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
-        links:
-            - redis
-        depends_on:
-            - db
-        networks:
-            - php
-
     php-consume-adrecord-first:
         container_name: php-consume-adrecord-first
         build: php-consume-adrecord
