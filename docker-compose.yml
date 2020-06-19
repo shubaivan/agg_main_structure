@@ -16,8 +16,8 @@ services:
 
     postgres:
         image: postgres:11-alpine
-        command: postgres -c work_mem=100MB -c max_parallel_workers_per_gather=6 -c max_connections=300
-        shm_size: 5g
+        command: postgres -c work_mem=800MB -c max_parallel_workers_per_gather=6 -c max_connections=300
+        shm_size: 6g
         ports:
             - '5432:5432'
         container_name: 'postgresql_alpine'
