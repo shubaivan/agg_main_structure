@@ -16,8 +16,8 @@ services:
 
     postgres:
         image: postgres:11-alpine
-        command: postgres -c work_mem=800MB -c max_parallel_workers_per_gather=6 -c max_connections=300
-        shm_size: 6g
+        command: postgres -c work_mem=4GB -c max_parallel_workers_per_gather=8 -c max_connections=300
+        shm_size: 8g
         ports:
             - '5432:5432'
         container_name: 'postgresql_alpine'
@@ -31,6 +31,7 @@ services:
             LC_CTYPE: 'sv_SE.UTF-8'
         volumes:
             - ./data/postgresql:/var/lib/postgresql/data
+            - ./pg/thesaurus_my_swedish.ths:/usr/local/share/postgresql/tsearch_data/thesaurus_my_swedish.ths
         networks:
             - php
 
