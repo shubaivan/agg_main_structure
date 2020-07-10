@@ -214,6 +214,24 @@ services:
         networks:
             - php
 
+    php-consume-csv-vacuum:
+        container_name: php-consume-csv-vacuum
+        build: php-consume-csv-vacuum
+        ports:
+            - "9016:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./php-consume-csv-vacuum/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        links:
+            - redis
+        depends_on:
+            - db
+        networks:
+            - php
+
     nginx:
         container_name: nginx
         build: ./nginx
