@@ -58,9 +58,6 @@ COPY xdebug.ini  /etc/php7/conf.d/
 
 COPY symfony.pool.conf /etc/php7/php-fpm.d/
 
-COPY ./cron /opt/cron
-RUN crontab -u root /opt/cron
-
 WORKDIR /var/www/symfony
 
 ENTRYPOINT ["ash", "/opt/docker-entrypoint.sh"]
