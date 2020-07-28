@@ -14,6 +14,28 @@ services:
         networks:
             - php
 
+    mongodb:
+        image: mongo:latest
+        container_name: mongodb
+        hostname: mongodb
+        volumes:
+            - ./docker/mongodb/mongod.conf:/etc/mongod.conf
+            - ./docker/mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+            - ./docker/mongodb/data/db/:/data/db/
+            - ./docker/mongodb/data/log/:/var/log/mongodb/
+            - ./docker/mongodb/home:/home/mongodb
+        env_file:
+            - .env
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+            MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+        ports:
+            - "27017:27017"
+        command: ["-f", "/etc/mongod.conf"]
+        networks:
+            - php
+
     postgres:
         image: postgres:11-alpine
         command: postgres -c work_mem=4GB -c max_parallel_workers_per_gather=8 -c max_connections=300
