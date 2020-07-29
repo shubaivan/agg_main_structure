@@ -21,7 +21,7 @@ services:
         volumes:
             - ./docker/mongodb/mongod.conf:/etc/mongod.conf
             - ./docker/mongodb/initdb.d/:/docker-entrypoint-initdb.d/
-            - ./docker/mongodb/data/db/:/data/db/
+            - ./data/momgo/:/data/db/
             - ./docker/mongodb/data/log/:/var/log/mongodb/
             - ./docker/mongodb/home:/home/mongodb
         env_file:

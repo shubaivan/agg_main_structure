@@ -1,9 +1,10 @@
-FROM alpine:3.10
+FROM alpine:edge
 
 LABEL maintainer="Vincent Composieux <vincent.composieux@gmail.com>"
 
 RUN apk add --update --no-cache \
     coreutils \
+    yarn \
     php7-fpm \
     php7-apcu \
     php7-ctype \
@@ -42,6 +43,8 @@ RUN apk add --update --no-cache \
     php7-pecl-amqp \
     php7-amqp \
     php7-redis
+
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ php7-pecl-mongodb
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \

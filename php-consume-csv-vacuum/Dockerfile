@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:edge
 
 LABEL maintainer="Vincent Composieux <vincent.composieux@gmail.com>"
 
@@ -44,6 +44,8 @@ RUN apk add --update --no-cache \
     php7-redis \
     openrc --no-cache \
     supervisor
+
+RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ php7-pecl-mongodb
 
 COPY docker-entrypoint.sh /opt/docker-entrypoint.sh
 
