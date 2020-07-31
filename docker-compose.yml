@@ -218,9 +218,9 @@ services:
         networks:
             - php
 
-    php-consume-adrecord-second:
-        container_name: php-consume-adrecord-second
-        build: php-consume-adrecord
+    php-consume-awin-first:
+        container_name: php-consume-awin-first
+        build: php-consume-awin
         ports:
             - "9015:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
@@ -228,7 +228,7 @@ services:
         volumes:
             - ./symfony:/var/www/symfony:cached
             - ./logs/symfony:/var/www/symfony/var/log:cached
-            - ./php-consume-adrecord/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+            - ./php-consume-awin/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
         links:
             - redis
         depends_on:
