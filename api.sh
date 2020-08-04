@@ -20,6 +20,9 @@ docker exec php-fpm sh  -c 'cd /var/www/symfony && composer install'
 echo run  php bin/console d:m:migrate
 docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console --no-interaction  d:m:migrate'
 
+echo run  php bin/console doctrine:mongodb:schema:update
+docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console doctrine:mongodb:schema:update'
+
 echo run  php bin/console d:f:load --append
 docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load --append'
 
