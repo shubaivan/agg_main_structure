@@ -23,6 +23,9 @@ docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console --no-interact
 echo run  php bin/console doctrine:mongodb:schema:update
 docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console doctrine:mongodb:schema:update'
 
+echo run  php bin/console a:i
+docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console a:i'
+
 echo run  php bin/console d:f:load --append
 docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load --append'
 
