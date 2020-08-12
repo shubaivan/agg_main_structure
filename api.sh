@@ -20,14 +20,21 @@ docker exec php-fpm sh  -c 'cd /var/www/symfony && composer install'
 echo run  php bin/console d:m:migrate
 docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console --no-interaction  d:m:migrate'
 
+echo run  php bin/console --no-interaction doctrine:migrations:migrate --em=manager_mysql --configuration=./config/migration_conf/doctrine_migrations_mysql.yaml
+docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console --no-interaction doctrine:migrations:migrate --em=manager_mysql --configuration=./config/migration_conf/doctrine_migrations_mysql.yaml'
+
 echo run  php bin/console doctrine:mongodb:schema:update
 docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console doctrine:mongodb:schema:update'
 
 echo run  php bin/console a:i
 docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console a:i'
 
-echo run  php bin/console d:f:load --append
-docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load --append'
+echo run  php bin/console d:f:load -n --em=default --group=my_pg_fixtures
+docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load -n --em=default --group=my_pg_fixtures'
+
+echo run  php bin/console d:f:load -n --em=manager_mysql --group=my_mysql
+docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load -n --em=manager_mysql --group=my_mysql'
+
 
 echo run  php bin/console app:awin:download
 docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console app:awin:download'
