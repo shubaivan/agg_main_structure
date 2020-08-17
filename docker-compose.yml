@@ -166,9 +166,9 @@ services:
       networks:
         - php
 
-    php-consume-csv-fourth:
-      container_name: php-consume-csv-fourth
-      build: php-consume-csv
+    php-consume-trade-doubler:
+      container_name: php-consume-trade-doubler
+      build: php-consume-trade-doubler
       ports:
         - "9005:9001"
       environment: # You can use this section to set environment variables. But you can also use the .env file.
@@ -176,7 +176,7 @@ services:
       volumes:
         - ./symfony:/var/www/symfony:cached
         - ./logs/symfony:/var/www/symfony/var/log:cached
-        - ./php-consume-csv/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        - ./php-consume-trade-doubler/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
       links:
         - redis
       depends_on:

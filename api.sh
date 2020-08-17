@@ -45,6 +45,9 @@ docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console app:adrecord:
 echo run  php bin/console app:adtraction:download
 docker exec php-fpm sh -c 'cd /var/www/symfony  && php bin/console app:adtraction:download'
 
+echo run  php bin/console app:trade_doubler:download
+docker exec php-fpm sh -c 'cd /var/www/symfony  && php bin/console app:trade_doubler:download'
+
 echo run yarn install
 docker exec php-fpm sh -c 'cd /var/www/symfony  && yarn install'
 
