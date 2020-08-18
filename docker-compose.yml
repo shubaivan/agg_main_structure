@@ -291,7 +291,7 @@ services:
             - db
         networks:
             - php
-            -
+
     php-consume-trade-doubler-first:
         container_name: php-consume-trade-doubler-first
         build: php-consume-trade-doubler
