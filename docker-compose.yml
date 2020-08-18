@@ -292,11 +292,29 @@ services:
         networks:
             - php
 
+    php-consume-awin-third:
+        container_name: php-consume-awin-third
+        build: php-consume-awin
+        ports:
+            - "9012:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./php-consume-awin/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        links:
+            - redis
+        depends_on:
+            - db
+        networks:
+            - php
+
     php-consume-trade-doubler-first:
         container_name: php-consume-trade-doubler-first
         build: php-consume-trade-doubler
         ports:
-            - "9012:9001"
+            - "9013:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
@@ -314,7 +332,25 @@ services:
         container_name: php-consume-trade-doubler-second
         build: php-consume-trade-doubler
         ports:
-            - "9013:9001"
+            - "9014:9001"
+        environment: # You can use this section to set environment variables. But you can also use the .env file.
+            - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./php-consume-trade-doubler/supervisord.conf:/etc/supervisord/conf.d/supervisord.conf
+        links:
+            - redis
+        depends_on:
+            - db
+        networks:
+            - php
+
+    php-consume-trade-doubler-third:
+        container_name: php-consume-trade-doubler-third
+        build: php-consume-trade-doubler
+        ports:
+            - "9015:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
@@ -332,7 +368,7 @@ services:
         container_name: php-consume-csv-vacuum
         build: php-consume-csv-vacuum
         ports:
-            - "9014:9001"
+            - "9016:9001"
         environment: # You can use this section to set environment variables. But you can also use the .env file.
             - MESSENGER_TRANSPORT_DSN=${MESSENGER_TRANSPORT_DSN} # AMQP connection string-
         volumes:
