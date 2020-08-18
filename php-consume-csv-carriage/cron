@@ -1,3 +1,4 @@
-0 1 * * * php /var/www/symfony/bin/console app:adrecord:download > /dev/null 2>&1
-0 2 * * * php /var/www/symfony/bin/console app:awin:download > /dev/null 2>&1
-0 0 * * * php /var/www/symfony/bin/console app:adtraction:download > /dev/null 2>&1
+0 0 * * * php /var/www/symfony/bin/console app:trade_doubler:download > /dev/null 2>&1
+0 1 * * * php /var/www/symfony/bin/console app:awin:download > /dev/null 2>&1
+0 2 * * * php /var/www/symfony/bin/console app:adtraction:download > /dev/null 2>&1
+0 3 * * * php /var/www/symfony/bin/console app:adrecord:download > /dev/null 2>&1
