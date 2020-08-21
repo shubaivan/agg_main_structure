@@ -40,7 +40,7 @@ services:
 
     postgres:
         image: postgres:11-alpine
-        command: postgres -c work_mem=4GB -c max_parallel_workers_per_gather=8 -c max_connections=300
+        command: postgres -c work_mem=4GB -c max_parallel_workers_per_gather=8 -c max_connections=900
         shm_size: 8g
         ports:
             - '5432:5432'
