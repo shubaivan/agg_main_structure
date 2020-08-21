@@ -406,18 +406,18 @@ services:
             elk_stack:
                 aliases:
                     - "elasticsearch"
-#    logstash:
-#        container_name: logstash
-#        image: docker.elastic.co/logstash/logstash:7.4.2
-#        depends_on:
-#            - elasticsearch
-#        volumes:
-#            - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
-#            - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
-#            - ./logs/symfony:/var/www/symfony/var/log:cached
-#            - ./logs/nginx:/var/log/nginx:cached
-#        networks:
-#            - elk_stack
+    logstash:
+        container_name: logstash
+        image: docker.elastic.co/logstash/logstash:7.4.2
+        depends_on:
+            - elasticsearch
+        volumes:
+            - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
+            - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./logs/nginx:/var/log/nginx:cached
+        networks:
+            - elk_stack
     kibana:
         container_name: kibana
         depends_on: 
