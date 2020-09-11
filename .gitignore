@@ -1,3 +1,6 @@
 /logs
 /symfony
 .env
+
+data
+test
