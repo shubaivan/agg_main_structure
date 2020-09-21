@@ -42,6 +42,7 @@ RUN apk add --update --no-cache \
     oniguruma-dev \
     php7-pecl-amqp \
     php7-amqp \
+    php7-sockets \
     php7-redis
 
 RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ php7-pecl-mongodb
