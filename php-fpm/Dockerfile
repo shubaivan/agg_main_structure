@@ -2,6 +2,11 @@ FROM alpine:edge
 
 LABEL maintainer="Vincent Composieux <vincent.composieux@gmail.com>"
 
+RUN apk update && apk upgrade && \
+    apk add --update --no-cache --update-cache vips-dev fftw-dev build-base \
+    --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/community/ \
+    --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/main
+
 RUN apk add --update --no-cache \
     coreutils \
     yarn \
