@@ -44,10 +44,7 @@ veckade kjolar : veckadekjolar
 veckad kjol : veckadkjol
 pleated skirts : pleatedskirts
 pleated skirt : pleatedskirt
-Rain coat : Raincoat
-Rain hat : Rainhat
-rain jacket : rainjacket
-rain pants : rainpants
+rain coat : raincoat
 Fleece jacka : Fleecejacka
 Vind fleece : Vindfleece
 Fleece tröja : Fleecetröja
@@ -95,6 +92,8 @@ Rubber boots : Rubberboots
 Rain boots : Rainboots
 Rain boot : Rainboot
 Rubber boot : Rubberboot
+fodrade gummistövlar : fodradegummistövlar
+fodrade thermostövlar : fodradethermostövlar
 Vinter Kängor : VinterKängor
 Vinter Känga : VinterKänga
 Vinter Boots : VinterBoots
@@ -104,7 +103,7 @@ Vinter Sko : VinterSko
 Vinter Stövlar : VinterStövlar
 Vinter Stövel : VinterStövel
 BTS stövlar : BTSstövlar
-Dolce & Gabbana : Dolce&Gabbana
+Dolce Gabbana : DolceGabbana
 Easy Peasy : EasyPeasy
 Fest sko : Festsko
 Fest skor : Festskor
@@ -143,6 +142,7 @@ Kick Lo Velcro School Skor : KickLoVelcroSchoolSkor
 fin sko : finsko
 fest sko : festsko
 fest skor : festskor
+Aqua Shoe : AquaShoe
 beach shoes : beachshoes
 Ballerina skor : Ballerinaskor
 Ballerina sko : Ballerinasko
@@ -179,7 +179,9 @@ pram hook : pramhook
 bumper bar : bumperbar
 2ME slang : 2MEslang
 svängbara hjul : svängbarahjul
-Extra delar : Extradelar
+convertible top : convertibletop
+color cloak : colorcloak
+standing board : standingboard
 Skid & Cykelvagnar : Skid&Cykelvagnar
 Resevagnar & Paraplyvagnar : Resevagnar&Paraplyvagnar
 barnvagn ? två : barnvagnförtvå
@@ -187,14 +189,11 @@ dubbla barnvagn : dubblabarnvagn
 double stroller : doublestroller
 sibling stroller : siblingstroller
 färg kappa : färgkappa
-color cloak : colorcloak
 portable crib : portablecrib
 Mobiler ? barnvagnen : Mobilerförbarnvagnen
 cup holder : cupholder
 winter envelope : winterenvelope
 sleeping bag : sleepingbag
-standing board : standingboard
-convertible top : convertibletop
 väder kitt : väderkitt
 rombiskt mönster : rombisktmönster
 Babyskydd baby Safety : BabyskyddbabySafety
@@ -226,4 +225,29 @@ Inredning Säkerhet : InredningSäkerhet
 framstående person : framståendeperson
 GPS klockor : GPSklockor
 tin hat : tinhat
+
+Rain coat : Raincoat
+Rain hat : Rainhat
+rain jacket : rainjacket
+rain pants : rainpants
+ME slang : MEslang
+? size : isize
+sweat shorts : sweatshorts
 mål match : målmatch
+Swim Suit : SwimSuit
+Swim Pants : SwimPants
+Swim Diapers : SwimDiapers
+UV Badshorts : UVBadshorts
+Bad tröja : Badtröja
+UV Apparel : UVApparel
+UV Pants : UVPants
+UV Sweater : UVSweater
+UV Sweatshirts : UVSweatshirts
+UV Sets : UVSets
+Diaper Tights : DiaperTights
+UV Bathing Suits : UVBathingSuits
+UV Bathing Shorts : UVBathingShorts
+Bathing Sweater : BathingSweater
+Bathing Suits : BathingSuits
+UV shirt : UVshirt
+handdukar UV Apparel : handdukarUVApparel
