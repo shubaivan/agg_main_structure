@@ -80,7 +80,7 @@ services:
             - 'redis-server'
             - '--maxmemory-policy allkeys-lru'
         ports:
-            - "6379:6379"
+            - "6381:6379"
         networks:
             - php
 
