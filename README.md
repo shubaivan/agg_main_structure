@@ -4,14 +4,14 @@ docker-symfony
 [![Build Status](https://secure.travis-ci.org/eko/docker-symfony.png?branch=master)](http://travis-ci.org/eko/docker-symfony)
 
 
-This is a complete stack for running Symfony 4 (latest version: Flex) into Docker containers using docker-compose tool.
+This is a complete stack for running Symfony 5 (latest version: Flex) into Docker containers using docker-compose tool.
 
 # Installation
 
 First, clone this repository:
 
 ```bash
-$ git clone https://github.com/eko/docker-symfony.git
+$ git clone git@github.com:proxify-ab/minimoj.git
 ```
 
 Next, put your Symfony application into `symfony` folder and do not forget to add `symfony.localhost` in your `/etc/hosts` file.
@@ -23,6 +23,12 @@ Then, run:
 
 ```bash
 $ docker-compose up
+```
+
+Or full up project
+
+```bash
+$ sh api.sh
 ```
 
 You are done, you can visit your Symfony application on the following URL: `http://symfony.localhost` (and access Kibana on `http://symfony.localhost:81`)

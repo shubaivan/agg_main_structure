@@ -32,6 +32,9 @@ docker exec php-fpm sh  -c 'cd /var/www/symfony && php bin/console a:i'
 echo run  php bin/console d:f:load -n --em=default --group=my_pg_fixtures
 docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load -n --em=default --group=my_pg_fixtures'
 
+echo run  php bin/console d:f:load -n --em=default --group=my_pg_fixtures_strategies
+docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load -n --em=default --group=my_pg_fixtures_strategies'
+
 echo run  php bin/console d:f:load -n --em=manager_mysql --group=my_mysql
 docker exec php-fpm sh  -c 'cd /var/www/symfony  && php bin/console d:f:load -n --em=manager_mysql --group=my_mysql'
 
