@@ -56,7 +56,7 @@ COPY docker-entrypoint.sh /opt/docker-entrypoint.sh
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
-        && php composer-setup.php && rm composer-setup.php* \
+        && php composer-setup.php --version=1.10.10 && rm composer-setup.php* \
         && chmod +x composer.phar && mv composer.phar /usr/bin/composer && chmod +x /opt/docker-entrypoint.sh
 
 COPY symfony.ini /etc/php7/conf.d/

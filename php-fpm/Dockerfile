@@ -54,7 +54,7 @@ RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/te
 
 RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
         && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
-        && php composer-setup.php && rm composer-setup.php* \
+        && php composer-setup.php --version=1.10.10 && rm composer-setup.php* \
         && chmod +x composer.phar && mv composer.phar /usr/bin/composer
 
 COPY symfony.ini /etc/php7/conf.d/
