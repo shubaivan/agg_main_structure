@@ -17,7 +17,6 @@ RUN apk add --update --no-cache \
     php7-dom \
     php7-gd \
     php7-iconv \
-    php7-imagick \
     php7-json \
     php7-intl \
     php7-mcrypt \
