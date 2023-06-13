@@ -71,6 +71,9 @@ You can access Nginx and Symfony application logs in the following directories o
 * `logs/nginx`
 * `logs/symfony`
 
+# Rabbit mq
+* http://127.0.0.1:15672/
+
 # Use Kibana!
 
 You can also use Kibana to visualize Nginx & Symfony logs by visiting `http://symfony.localhost:81`.
