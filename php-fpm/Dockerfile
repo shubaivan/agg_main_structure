@@ -1,68 +1,85 @@
-FROM alpine:edge
+FROM php:7.4-fpm
 
-LABEL maintainer="Vincent Composieux <vincent.composieux@gmail.com>"
+ARG TIMEZONE
 
-RUN apk update && apk upgrade && \
-    apk add --update --no-cache --update-cache vips-dev fftw-dev build-base \
-    --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/community/ \
-    --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/main
+RUN apt-get update \
+        && apt-get install -y libmcrypt-dev \
+        && apt-get install -y libpng-dev \
+        && apt-get install -y libpq-dev \
+        && apt-get install -y libonig-dev \
+        && apt-get install -y libxslt-dev \
+        && apt-get install -y libcurl4-openssl-dev \
+        && apt-get install -y libssl-dev \
+        && apt-get install -y mc \
+        && pecl install mcrypt-1.0.3 \
+        && docker-php-ext-enable mcrypt \
+        && pecl install mongodb \
+        && docker-php-ext-enable mongodb \
+        && docker-php-ext-install gd \
+        && docker-php-ext-install pdo pdo_pgsql pdo_mysql xsl gd intl opcache exif mbstring \
+        && apt-get install -y iputils-ping \
+        && echo 'alias sf="php bin/console"' >> ~/.bashrc
 
-RUN apk add --update --no-cache \
-    coreutils \
-    yarn \
-    php7-fpm \
-    php7-apcu \
-    php7-ctype \
-    php7-curl \
-    php7-dom \
-    php7-gd \
-    php7-iconv \
-    php7-json \
-    php7-intl \
-    php7-mcrypt \
-    php7-fileinfo\
-    php7-mbstring \
-    php7-opcache \
-    php7-openssl \
-    php7-pdo \
-    php7-pdo_mysql \
-    php7-mysqli \
-    php7-pdo_pgsql \
-    php7-pgsql \
-    php7-xml \
-    php7-zlib \
-    php7-phar \
-    php7-tokenizer \
-    php7-session \
-    php7-simplexml \
-    php7-xdebug \
-    php7-zip \
-    php7-xmlwriter \
-    make \
-    curl \
-    zlib-dev \
-    libxml2-dev \
-    rabbitmq-c-dev \
-    oniguruma-dev \
-    php7-pecl-amqp \
-    php7-amqp \
-    php7-sockets \
-    php7-redis
+# Install node
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt-get install nodejs
+RUN rm nodesource_setup.sh
 
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ php7-pecl-mongodb
+# Install yarn
+RUN apt-get install -y gnupg
 
-RUN echo "$(curl -sS https://composer.github.io/installer.sig) -" > composer-setup.php.sig \
-        && curl -sS https://getcomposer.org/installer | tee composer-setup.php | sha384sum -c composer-setup.php.sig \
-        && php composer-setup.php --version=1.10.10 && rm composer-setup.php* \
-        && chmod +x composer.phar && mv composer.phar /usr/bin/composer
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn apt-key add - && \
+echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+apt-get update && \
+apt-get install -y --no-install-recommends yarn
 
-COPY symfony.ini /etc/php7/conf.d/
-COPY symfony.ini /etc/php7/cli/conf.d/
-COPY xdebug.ini  /etc/php7/conf.d/
+# Install zip
+RUN apt-get update \
+     && apt-get install -y libzip-dev \
+     && docker-php-ext-install zip
 
-COPY symfony.pool.conf /etc/php7/php-fpm.d/
+# Install supervisor
+RUN apt-get update && \
+    apt-get install -y \
+    supervisor
 
-CMD ["php-fpm7", "-F"]
+# Install git
+RUN apt-get install git -y
 
-WORKDIR /var/www/symfony
+# Install amqp etc
+RUN apt-get update \
+    && apt-get install -y \
+        librabbitmq-dev \
+        libssh-dev \
+    && docker-php-ext-install \
+        bcmath \
+        sockets \
+    && pecl install amqp \
+    && docker-php-ext-enable amqp
+
+# Install redis
+RUN pecl install redis && docker-php-ext-enable redis
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# install xdebug
+RUN pecl install xdebug-3.0.3 \
+        && docker-php-ext-enable xdebug
+
+# Set timezone
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \
+    && printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini \
+    && "date"
+
+
+COPY docker-entrypoint.sh /opt/docker-entrypoint.sh
+
+WORKDIR  /var/www/symfony
+
+ENTRYPOINT ["bash", "/opt/docker-entrypoint.sh"]
+
+#CMD ["php-fpm"]
+
 EXPOSE 9001
